@@ -1,0 +1,31 @@
+.visuality_hidden{
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    bottom: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    overflow: hidden;
+}
+.labelCheckbox {
+    position: relative;
+    // padding-left: 30px;
+    cursor: pointer;
+    display: block;
+    // padding: 12px 20px 12px 50px;
+}
+// .labelCheckbox:hover{
+//     background-color: #F1FCFF;
+// }
+.checker{
+    position: absolute;
+    top: 9px;
+    margin-left: -30px;
+    width: 20px;
+    height: 20px;
+    background-image: url(../img/checkboxOff.svg);
+}
+.inputCheckbox:checked + .checker {
+    background-image: url(../img/checkboxOn.svg);
+}

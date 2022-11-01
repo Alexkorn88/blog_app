@@ -1,0 +1,14 @@
+@import-normalize;
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    // width: 754px;
+    height: 100%;
+    
+    font-size: 12px;
+    // text-transform: uppercase;
+    // color: #4A4A4A;
+    // font-weight: 600;
+}
