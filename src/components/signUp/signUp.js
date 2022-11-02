@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // eslint-disable-next-line import/named
 import { addSignUpAction } from '../../store/actions';
@@ -10,11 +10,10 @@ import { addSignUpAction } from '../../store/actions';
 import styles from './signUp.module.scss';
 
 function SignUp() {
-  // eslint-disable-next-line no-unused-vars
-  const signUpData = useSelector((state) => state.signUp.user);
+  // const signUpData = useSelector((state) => state.signUp.user);
   // console.log(signUpData);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const {
     register,
     formState: { errors, isValid },
@@ -27,6 +26,7 @@ function SignUp() {
     // console.log(data);
     dispatch(addSignUpAction(data));
     reset();
+    navigate('/', { replace: true });
   };
 
   const password = watch('password');
@@ -73,6 +73,8 @@ function SignUp() {
             type="password"
             {...register('password', {
               required: 'Поле обязательно для заполнения',
+              minLength: { value: 6, message: 'Минимальная длина 6 символов' },
+              maxLength: { value: 40, message: 'Максимальная длина 40 символов' },
             })}
             placeholder="Password"
           />

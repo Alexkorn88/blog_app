@@ -1,10 +1,26 @@
-import React from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
+// eslint-disable-next-line import/named
+import { addSignInAction } from '../../store/actions';
 
 import styles from './signIn.module.scss';
 
 function SignIn() {
+  const signUpData = useSelector((state) => state.signUp);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    setToken(signUpData?.token);
+    // console.log(signUpData);
+  }, []);
   const {
     register,
     formState: { errors, isValid },
@@ -12,9 +28,12 @@ function SignIn() {
     reset,
     // watch,
   } = useForm({ mode: 'all' });
+
   const onSubmit = (data) => {
-    console.log(data);
+    console.log(signUpData.token);
+    dispatch(addSignInAction(data, token));
     reset();
+    navigate('/', { replace: true });
   };
 
   // const password = watch('password');

@@ -3,7 +3,7 @@
 import { useSelector } from 'react-redux';
 
 // eslint-disable-next-line no-unused-vars
-import { ALL_ARTICLES, GO_TO_PAGE, SIGN_UP, LOG_OUT } from './type';
+import { ALL_ARTICLES, GO_TO_PAGE, SIGN_UP, LOG_OUT, SIGN_IN, PROFILE_EDIT } from './type';
 
 export const addGoPageAction = (page) => ({ type: GO_TO_PAGE, page });
 // export const addOneCheckAction = (id) => ({ type: ONE_CHECK, id });
@@ -30,16 +30,90 @@ export function addSignUpAction(data) {
     fetch('https://blog.kata.academy/api/users', {
       method: 'POST',
       headers: {
-        // eslint-disable-next-line prettier/prettier
         Accept: 'application/json',
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ user: { username: data.username, email: data.email, password: data.password } }),
     })
-      .then((res) => res.json())
-      .then((user) => {
+      // .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          // alert('Упс, что-то пошло не так, проверьте данные ввода');
+          throw Error('Упс, что-то пошло не так, проверьте данные ввода');
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
         // const image = 'https://static.productionready.io/images/smiley-cyrus.jpg';
-        dispatch({ type: SIGN_UP, user });
+        const userData = res.user;
+        dispatch({ type: SIGN_UP, userData });
+      })
+      .catch((e) => console.log(e));
+  };
+}
+
+// const token = useSelector((state) => state.signUp.user.token);
+
+export function addSignInAction(data, token) {
+  // console.log(data);
+  return async (dispatch) => {
+    fetch('https://blog.kata.academy/api/users/login', {
+      method: 'POST',
+      headers: {
+        // eslint-disable-next-line no-undef
+        Authorization: `${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user: { email: data.email, password: data.password } }),
+    })
+      // .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          // alert('Упс, что-то пошло не так, проверьте данные ввода');
+          throw Error('Упс, что-то пошло не так, проверьте данные ввода');
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        // const image = 'https://static.productionready.io/images/smiley-cyrus.jpg';
+        const userData = res.user;
+        dispatch({ type: SIGN_IN, userData });
+      })
+      .catch((e) => console.log(e));
+  };
+}
+
+export function addProfileEditAction(data, token) {
+  // console.log(data);
+  return async (dispatch) => {
+    fetch('https://blog.kata.academy/api/user', {
+      method: 'PUT',
+      headers: {
+        // eslint-disable-next-line no-undef
+        Authorization: `Token ${token}`,
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: { username: data.username, email: data.email, password: data.password, image: data.image },
+      }),
+    })
+      // .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          // alert('Упс, что-то пошло не так, проверьте данные ввода');
+          throw Error('Упс, что-то пошло не так, проверьте данные ввода');
+        } else {
+          return res.json();
+        }
+      })
+      .then((res) => {
+        // const image = 'https://static.productionready.io/images/smiley-cyrus.jpg';
+        const userData = res.user;
+        dispatch({ type: PROFILE_EDIT, userData });
       })
       .catch((e) => console.log(e));
   };

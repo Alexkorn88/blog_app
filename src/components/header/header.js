@@ -8,8 +8,8 @@ import styles from './header.module.scss';
 
 function Header() {
   const [userData, setUserData] = useState('');
-  const signUpData = useSelector((state) => state.signUp.user);
-  console.log(signUpData);
+  const signUpData = useSelector((state) => state.signUp);
+  // console.log(signUpData);
   const dispatch = useDispatch();
 
   const logOut = () => {
@@ -25,7 +25,7 @@ function Header() {
       <div className={styles.title}>
         <Link to="/">Realworld Blog</Link>
       </div>
-      {!userData?.token ? (
+      {!userData?.isLogin ? (
         <div className={styles.loginContainer}>
           <button className={styles.btn} type="button">
             <Link to="/sign-in">Sign In</Link>
@@ -39,12 +39,13 @@ function Header() {
           <button className={styles.btnCreate} type="button">
             <Link to="/">Create article</Link>
           </button>
-          <div className={styles.userName}>{userData?.username}</div>
+          <div className={styles.userName}>
+            <Link to="/profile">{userData?.username}</Link>
+          </div>
           <div className={styles.articleAvatar}>
-            <img
-              src={userData?.image ? userData?.image : 'https://static.productionready.io/images/smiley-cyrus.jpg'}
-              alt="avalogo"
-            />
+            <Link to="/profile">
+              <img src={userData?.image} alt="avalogo" />
+            </Link>
           </div>
           <button className={styles.btn} type="button">
             <Link to="/" onClick={logOut}>

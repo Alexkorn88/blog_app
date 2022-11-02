@@ -111,5 +111,16 @@
     font-size: 18px;
     line-height: 28px;
     margin-right: 13px;
+    & a{
+        color: inherit;
+        &:focus {
+            color: rgba(82, 196, 26, 1); 
+        }
+    
+        &:hover {
+            
+            color: rgba(82, 196, 26, 1); 
+        }
+    }
 }
 .articleAvatar{}

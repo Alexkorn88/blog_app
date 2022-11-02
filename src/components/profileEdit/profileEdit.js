@@ -1,11 +1,26 @@
 /* eslint-disable no-useless-escape */
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-// import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+
+// eslint-disable-next-line import/named
+import { addProfileEditAction } from '../../store/actions';
 
 import styles from './profileEdit.module.scss';
 
 function ProfileEdit() {
+  const signUpData = useSelector((state) => state.signUp);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    setToken(signUpData?.token);
+    // console.log(signUpData);
+  }, []);
   const {
     register,
     formState: { errors, isValid },
@@ -13,9 +28,12 @@ function ProfileEdit() {
     reset,
     // watch,
   } = useForm({ mode: 'all' });
+
   const onSubmit = (data) => {
     console.log(data);
+    dispatch(addProfileEditAction(data, token));
     reset();
+    navigate('/', { replace: true });
   };
 
   // const password = watch('password');
@@ -73,7 +91,7 @@ function ProfileEdit() {
           <p className={styles.labelP}>Avatar image (url)</p>
           <input
             className={errors?.avatarUrl && styles.errorBorder}
-            {...register('avatarUrl', {
+            {...register('image', {
               required: 'Поле обязательно для заполнения',
               pattern: {
                 value:
@@ -83,9 +101,7 @@ function ProfileEdit() {
             })}
             placeholder="Avatar image"
           />
-          <div className={styles.errorValid}>
-            {errors?.avatarUrl && <p>{errors?.avatarUrl?.message || 'Error!'}</p>}
-          </div>
+          <div className={styles.errorValid}>{errors?.image && <p>{errors?.image?.message || 'Error!'}</p>}</div>
         </label>
         <input className={styles.submitBtn} type="submit" disabled={!isValid} value="Save" />
       </form>
