@@ -1,18 +1,21 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, Link } from 'react-router-dom';
 // eslint-disable-next-line import/no-extraneous-dependencies, import/order
-import { HeartOutlined } from '@ant-design/icons';
-// import { useSelector } from 'react-redux';
-
-// import avatar from '../img/avatar.svg';
+import { HeartTwoTone } from '@ant-design/icons';
 
 import { format } from 'date-fns';
+
+import { addArticlesAction, addLikeArticleAction, addDislikeArticleAction } from '../../store/actions';
 
 import styles from './contentCard.module.scss';
 
 function ContentCard({ itemProps }) {
-  // eslint-disable-next-line no-unused-vars
-  const { title, description, createdAt, author, tagList, favoritesCount, slug } = itemProps;
+  const signUpData = useSelector((state) => state.signUp);
+  const pageCount = useSelector((state) => state.goPage.page);
+
+  const { title, description, createdAt, author, tagList, favoritesCount, slug, favorited } = itemProps;
   const tags = () =>
     tagList.map((item, index) => {
       const indexItem = index + item;
@@ -26,6 +29,24 @@ function ContentCard({ itemProps }) {
 
   const artDate = format(new Date(createdAt), 'MMMM dd, yyyy');
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const toggleLike = () => {
+    if (!signUpData.isLogin) {
+      navigate('/sign-in');
+    } else {
+      if (favorited === false) {
+        dispatch(addLikeArticleAction(signUpData.token, slug));
+        dispatch(addArticlesAction(pageCount, signUpData.token));
+      }
+      if (favorited === true) {
+        dispatch(addDislikeArticleAction(signUpData.token, slug));
+        dispatch(addArticlesAction(pageCount, signUpData.token));
+      }
+    }
+  };
+
   return (
     <div className={styles.contentCard}>
       <div className={styles.contentHeader}>
@@ -34,8 +55,11 @@ function ContentCard({ itemProps }) {
             <div className={styles.contentTitle}>
               <Link to={`/articles/${slug}`}>{title}</Link>
             </div>
-            <div className={styles.contentLikes}>
-              <HeartOutlined />
+            <div className={styles.contentLikes} onClick={toggleLike} onKeyDown={toggleLike}>
+              <HeartTwoTone
+                twoToneColor={signUpData.isLogin && favorited && '#ff0000'}
+                className={signUpData.isLogin && favorited && styles.activeLikes}
+              />
               {favoritesCount}
             </div>
           </div>

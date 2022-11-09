@@ -45,6 +45,14 @@
     padding: 0;
     color: rgba(0, 0, 0, 0.75);
     cursor: pointer;
+    &:hover:active {
+        transform: scale(0.8);
+        // background-color: red;
+      }
+}
+.activeLikes{
+    color: #ff0000;
+    // background-color: red;
 }
 
 .contentTags{

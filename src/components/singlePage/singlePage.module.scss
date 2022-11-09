@@ -45,6 +45,14 @@
     padding: 0;
     color: rgba(0, 0, 0, 0.75);
     cursor: pointer;
+    &:hover:active {
+        transform: scale(0.8);
+        // background-color: red;
+      }
+}
+.activeLikes{
+    color: #ff0000;
+    // background-color: red;
 }
 
 
@@ -68,6 +76,7 @@
 
 .articleRight{
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     margin: 0;
     padding: 0;
@@ -125,4 +134,136 @@ img{
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
+}
+
+.articleRightFlex{
+    display: flex;
+}
+.btnBlock{
+    margin: 30px 0 0 0;
+    display: flex;
+    justify-content: end;
+    position: relative;
+}
+
+.btnDel{
+    // padding: 10px 18px;
+    // border: none;
+    width: 78px;
+    height: 31px;
+    border: 1px solid #F5222D;
+    border-radius: 5px;
+    font: inherit;
+    // color: inherit;
+    color: #F5222D;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 0px;
+    // margin-top: 25px;
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid #F5222D;
+        border-radius: 5px;
+        color: rgba#F5222D;
+    }
+
+}
+.btnDel a {
+    color: #F5222D; 
+    &:focus {
+        color: #F5222D; 
+    }
+
+    &:hover {
+        
+        color: #F5222D; 
+    }
+}
+.btnEdit{
+    // padding: 10px 18px;
+    // border: none;
+    width: 78px;
+    height: 31px;
+    border: 1px solid #52C41A;
+    border-radius: 5px;
+    font: inherit;
+    // color: inherit;
+    color: #52C41A;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    margin-left: 12px;
+    // margin-top: 25px;
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid #52C41A;
+        border-radius: 5px;
+        color: rgba#52C41A;
+    }
+
+}
+.btnEdit a {
+    color: #52C41A; 
+    &:focus {
+        color: #52C41A; 
+    }
+
+    &:hover {
+        
+        color: #52C41A; 
+    }
+}
+.modalContainer{
+    // width: 240px;
+    // height: 104px;
+    padding: 16px;
+    margin: 0;
+}
+.modalInfo{
+    display: flex;
+    justify-content: start;
+    margin: 0;
+    & img {
+        width: 14px;
+        height: 14px;
+        margin: 3px 0 0 0;
+    }
+    & p{
+        margin-left: 9px;
+    }
+}
+.modalBtnBlock{
+    display: flex;
+    justify-content: end;
+}
+.modalBtn{
+    padding: 0px 8px;
+    // border: none;
+    // width: 78px;
+    height: 24px;
+    border: 1px solid #D9D9D9;
+    border-radius: 4px;
+    font: inherit;
+    color: inherit;
+    // color: #52C41A;
+    background-color: transparent;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    margin-left: 8px;
+    // margin-top: 25px;
+    cursor: pointer;
+
+    &:hover{
+        border: 1px solid #1890FF;
+        border-radius: 5px;
+        color: #FFFFFF;
+        background-color: #1890FF;
+
+    }
 }

@@ -37,7 +37,7 @@ function Header() {
       ) : (
         <div className={styles.profileContainer}>
           <button className={styles.btnCreate} type="button">
-            <Link to="/">Create article</Link>
+            <Link to="/new-article">Create article</Link>
           </button>
           <div className={styles.userName}>
             <Link to="/profile">{userData?.username}</Link>

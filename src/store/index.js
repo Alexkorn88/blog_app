@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/order
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -7,13 +6,13 @@ import storage from 'redux-persist/lib/storage';
 import { articlesReduser } from './articlesReduser';
 import { goPageReduser } from './goPageReduser';
 import { signUpReduser } from './signUpReduser';
-
-// import { signInReduser } from './signInReduser';
+import { newArticleReducer } from './newArticleReducer';
 
 const rootReducer = combineReducers({
   articles: articlesReduser,
   goPage: goPageReduser,
   signUp: signUpReduser,
+  newArticle: newArticleReducer,
 });
 
 const persistConfig = {
@@ -37,4 +36,3 @@ const loggerMiddleware = (store) => (next) => (action) => {
 // eslint-disable-next-line import/prefer-default-export
 export const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(loggerMiddleware, reduxThunk)));
 export const persistor = persistStore(store);
-// store.subscribe(() => console.log(store.getState()));

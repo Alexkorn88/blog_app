@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Pagination } from 'antd';
-// import { Link } from 'react-router-dom';
 
 import { addGoPageAction, addArticlesAction } from '../../store/actions';
 
@@ -11,11 +10,12 @@ import styles from './footer.module.scss';
 function Footer() {
   const articlesCount = useSelector((state) => state.articles.articlesCount);
   const pageCount = useSelector((state) => state.goPage.page);
+  const signUpData = useSelector((state) => state.signUp);
   const dispatch = useDispatch();
 
   const handlePageClick = (value) => {
     dispatch(addGoPageAction(value));
-    dispatch(addArticlesAction(value));
+    dispatch(addArticlesAction(value, signUpData.token));
   };
 
   const paginList = () =>
